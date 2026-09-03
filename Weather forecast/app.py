@@ -71,13 +71,16 @@ def get_weather(city: str) -> dict:
         {
             "latitude": location["latitude"],
             "longitude": location["longitude"],
-            "current": "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation",
+            "current": "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation,rain,showers",
+            "hourly": "precipitation_probability",
             "temperature_unit": "celsius",
             "wind_speed_unit": "kmh",
             "timezone": "auto",
         },
     )
     current = weather["current"]
+    hourly = weather.get("hourly", {})
+    precipitation_probability = (hourly.get("precipitation_probability") or [0])[0]
     code = current["weather_code"]
     condition, icon = WEATHER_CODES.get(code, ("Current conditions", "cloud"))
     local_time = datetime.fromisoformat(current["time"]).strftime("%A, %B %d at %I:%M %p").replace(" 0", " ")
@@ -90,6 +93,8 @@ def get_weather(city: str) -> dict:
         "humidity": current["relative_humidity_2m"],
         "wind_speed": round(current["wind_speed_10m"]),
         "precipitation": current["precipitation"],
+        "precipitation_probability": precipitation_probability,
+        "rain_intensity": round(current.get("rain", 0) + current.get("showers", 0), 1),
         "condition": condition,
         "icon": icon,
         "updated_at": current["time"],

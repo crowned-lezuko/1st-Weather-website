@@ -51,6 +51,10 @@ function renderWeather(data) {
   document.querySelector('#humidity').textContent = `${data.humidity}%`;
   document.querySelector('#wind').textContent = data.wind_speed;
   document.querySelector('#precipitation').textContent = data.precipitation;
+  document.querySelector('#precipitation-probability').textContent = data.precipitation_probability;
+  const rainIntensity = Number(data.rain_intensity || 0);
+  const intensityLabel = rainIntensity === 0 ? 'None' : rainIntensity < 2.5 ? 'Light' : rainIntensity < 7.6 ? 'Moderate' : 'Heavy';
+  document.querySelector('#rain-intensity').textContent = `${intensityLabel} (${rainIntensity} mm/h)`;
   document.querySelector('#updated').textContent = `Updated ${data.updated_at.replace('T', ' ')}`;
   const icon = document.querySelector('#weather-icon');
   icon.setAttribute('data-lucide', data.icon);
