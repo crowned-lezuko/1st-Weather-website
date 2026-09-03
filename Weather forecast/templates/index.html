@@ -27,6 +27,7 @@
         <label class="sr-only" for="city-input">Search for a city</label>
         <input id="city-input" type="search" placeholder="Search a city..." autocomplete="off" required>
         <button type="submit">Search <i data-lucide="arrow-up-right"></i></button>
+        <button id="location-button" class="location-button" type="button" title="Use my location" aria-label="Use my location"><i data-lucide="locate-fixed"></i></button>
       </form>
       <div id="search-error" class="search-error" role="alert" hidden></div>
     </section>
@@ -52,6 +53,10 @@
           <div class="metric"><i data-lucide="gauge"></i><span>Rain intensity</span><strong id="rain-intensity">--</strong></div>
         </div>
       </article>
+      <section id="forecast-section" class="forecast-section" hidden>
+        <div class="section-heading"><div><p class="label">The next few days</p><h2>Five-day forecast</h2></div></div>
+        <div id="forecast" class="forecast-grid"></div>
+      </section>
     </section>
 
     <section class="favorites-section">
