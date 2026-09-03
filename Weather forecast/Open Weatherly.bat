@@ -4,7 +4,7 @@ cd /d "%~dp0"
 
 if not exist ".venv\Scripts\python.exe" (
     echo Setting up Weatherly for the first run...
-    py -m venv .venv
+    python -m venv .venv
     if errorlevel 1 (
         echo Could not create the Python environment.
         pause
@@ -18,7 +18,7 @@ if not exist ".venv\Scripts\python.exe" (
     )
 )
 
-start "Weatherly server" cmd /k "cd /d "%~dp0" && ".venv\Scripts\python.exe" -m flask --app app run"
+start "Weatherly server" /D "%~dp0" ".venv\Scripts\python.exe" -m flask --app app run
 timeout /t 2 /nobreak >nul
 start "" "http://127.0.0.1:5000"
 endlocal
