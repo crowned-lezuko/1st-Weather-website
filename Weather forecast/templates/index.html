@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f0e8">
+  <title>Weatherly | Current weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Weatherly home"><span class="brand-mark"><i data-lucide="cloud-sun"></i></span><span>Weatherly</span></a>
+      <span class="eyebrow">Live conditions</span>
+    </header>
+
+    <section class="intro">
+      <p class="kicker">Your sky, right now</p>
+      <h1>Find the weather<br><em>wherever you are.</em></h1>
+      <p class="lede">A clear read on the day ahead, from the places that matter to you.</p>
+      <form id="search-form" class="search" role="search">
+        <i data-lucide="search"></i>
+        <label class="sr-only" for="city-input">Search for a city</label>
+        <input id="city-input" type="search" placeholder="Search a city..." autocomplete="off" required>
+        <button type="submit">Search <i data-lucide="arrow-up-right"></i></button>
+      </form>
+      <div id="search-error" class="search-error" role="alert" hidden></div>
+    </section>
+
+    <section class="dashboard" aria-live="polite">
+      <div id="empty-state" class="empty-state"><i data-lucide="map-pin"></i><p>Search for a city to see its current conditions.</p></div>
+      <div id="loading-state" class="empty-state" hidden><span class="spinner"></span><p>Reading the sky...</p></div>
+      <article id="weather-card" class="weather-card" hidden>
+        <div class="weather-heading">
+          <div><p class="label">Current weather</p><h2 id="location">--</h2><p id="local-time" class="muted">Local time: --</p></div>
+          <button id="favorite-button" class="favorite" type="button" aria-label="Save city" title="Save city"><i data-lucide="star"></i></button>
+        </div>
+        <div class="primary-weather">
+          <div class="condition-icon"><i id="weather-icon" data-lucide="sun"></i></div>
+          <div><p id="condition" class="condition">--</p><p class="temperature"><span id="temperature">--</span><sup>°C</sup></p></div>
+        </div>
+        <p class="feels">Feels like <strong id="feels-like">--</strong>°</p>
+        <div class="metrics">
+          <div class="metric"><i data-lucide="droplets"></i><span>Humidity</span><strong id="humidity">--</strong></div>
+          <div class="metric"><i data-lucide="wind"></i><span>Wind</span><strong><span id="wind">--</span> km/h</strong></div>
+          <div class="metric"><i data-lucide="cloud-rain"></i><span>Precipitation</span><strong><span id="precipitation">--</span> mm</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="favorites-section">
+      <div class="section-heading"><div><p class="label">Quick access</p><h2>Favorite cities</h2></div><span id="favorite-count" class="count">0 saved</span></div>
+      <div id="favorites" class="favorites"><p class="muted">Your saved cities will appear here.</p></div>
+    </section>
+    <footer><span>Weather data by Open-Meteo</span><span id="updated">--</span></footer>
+  </main>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
